@@ -1,0 +1,9 @@
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import CollectionCard from '../../components/CollectionCard.astro';
+import { collections } from '../../data/site';
+---
+<SiteLayout title="商品系列｜Acuí 好脆插畫設計" description="探索 Acuí 與 Shadow Shadooo Wonderland 插畫系列，認識故事盒燈箱、插畫生活物件與創作世界。" breadcrumbs={[{ name: '商品' }]}>
+  <section class="page-hero wrap"><p class="eyebrow">COLLECTIONS & OBJECTS</p><h1>每個系列，<br /><em>都是一個小小世界。</em></h1><p class="page-lede">從日常裡的風景，到影子裡的想像。<br />走進不同的插畫故事。</p></section>
+  <section class="collection-grid wrap products-grid">{collections.map((collection, index) => <CollectionCard collection={collection} index={`0${index + 1}`} />)}</section>
+  <section class="shop-note wrap"><span class="note-star" aria-hidden="true">✳</span><p>喜歡某件作品？<br /><span>各系列商品與線上商店連結即將整理上架。</span></p></section>
+</SiteLayout>
