@@ -12,9 +12,10 @@ interface Props {
 }
 
 const { title, description, image = import.meta.env.BASE_URL + 'images/og-cover.svg', breadcrumbs = [] } = Astro.props;
-const canonicalPath = import.meta.env.BASE_URL + Astro.url.pathname.replace(/^\//, '');
+const basePath = import.meta.env.BASE_URL;
+const canonicalPath = Astro.url.pathname.startsWith(basePath) ? Astro.url.pathname : basePath + Astro.url.pathname.replace(/^\//, '');
 const canonical = new URL(canonicalPath, Astro.site);
-const breadcrumbItems = [{ name: '首頁', href: import.meta.env.BASE_URL }, ...breadcrumbs];
+const breadcrumbItems = [{ name: '首頁', href: basePath }, ...breadcrumbs];
 const breadcrumbSchema = breadcrumbs.length
   ? {
       '@context': 'https://schema.org',
@@ -23,7 +24,7 @@ const breadcrumbSchema = breadcrumbs.length
         '@type': 'ListItem',
         position: index + 1,
         name: item.name,
-        item: item.href ? new URL(item.href.startsWith('/') ? import.meta.env.BASE_URL + item.href.replace(/^\//, '') : item.href, Astro.site).toString() : canonical.toString(),
+        item: item.href ? new URL(item.href.startsWith(basePath) ? item.href : item.href.startsWith('/') ? basePath + item.href.replace(/^\//, '') : item.href, Astro.site).toString() : canonical.toString(),
       })),
     }
   : null;
@@ -36,8 +37,8 @@ const breadcrumbSchema = breadcrumbs.length
     <meta name="theme-color" content="#f5f3ec" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href={import.meta.env.BASE_URL + 'favicon.svg'} />
-    <link rel="sitemap" href={import.meta.env.BASE_URL + 'sitemap.xml'} />
+    <link rel="icon" type="image/svg+xml" href={basePath + 'favicon.svg'} />
+    <link rel="sitemap" href={basePath + 'sitemap.xml'} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_TW" />
     <meta property="og:site_name" content={site.name} />
@@ -51,7 +52,7 @@ const breadcrumbSchema = breadcrumbs.length
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: site.name,
-      url: Astro.site,
+      url: new URL(basePath, Astro.site).toString(),
       email: site.email,
       sameAs: [site.instagram],
     })} />
