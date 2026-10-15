@@ -1,0 +1,41 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import CollectionCard from '../components/CollectionCard.astro';
+import { collections } from '../data/site';
+---
+<SiteLayout title="Acuí 好脆插畫設計｜讓插畫住進日常" description="Acuí 好脆插畫設計，來自插畫家 Astrid 阿脆。以細膩溫暖的插畫描繪日常，創作居家物件、故事盒燈箱與插畫合作。">
+  <section class="home-hero wrap">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="eyebrow-dot"></span> ILLUSTRATION & OBJECTS</p>
+      <h1>讓插畫<br /><em>住進日常。</em></h1>
+      <p class="hero-description">我是插畫家 Astrid 阿脆。<br />把日常裡容易錯過的片刻，畫成陪伴生活的故事。</p>
+      <a class="text-link" href="/products/">認識作品系列 <span aria-hidden="true">↗</span></a>
+      <span class="hero-note">A LITTLE SOFTNESS<br />FOR EVERYDAY LIFE</span>
+    </div>
+    <div class="hero-art artwork-sage" role="img" aria-label="以日光、山巒與植物為靈感的插畫主視覺">
+      <span class="hero-art-label">Acuí<br /><small>ILLUSTRATION STUDIO</small></span>
+      <span class="hero-art-sun"></span><span class="hero-art-cloud cloud-one"></span><span class="hero-art-cloud cloud-two"></span>
+      <span class="hero-hill hill-back"></span><span class="hero-hill hill-front"></span>
+      <span class="hero-stem stem-one"></span><span class="hero-stem stem-two"></span>
+      <span class="hero-art-caption">a quiet moment<br />under the sun</span>
+    </div>
+    <div class="hero-index"><span>01</span><span class="index-line"></span><span>04</span></div>
+  </section>
+
+  <section class="intro-section wrap">
+    <p class="eyebrow">A NOTE FROM THE ARTIST</p>
+    <div class="intro-content"><h2>有些微小的日常，<br />值得被好好收藏。</h2><div><p>Acuí 來自插畫家 Astrid 阿脆的創作。從一張畫開始，慢慢延伸成生活裡可以觸摸、使用、陪伴的物件。</p><p>在畫面與生活之間，留下一點溫柔的空間。</p></div></div>
+  </section>
+
+  <section class="series-section">
+    <div class="section-heading wrap"><div><p class="eyebrow">FIND YOUR LITTLE WORLD</p><h2>作品系列</h2></div><a class="text-link" href="/products/">查看全部系列 <span aria-hidden="true">↗</span></a></div>
+    <div class="collection-grid wrap">{collections.map((collection, index) => <CollectionCard collection={collection} index={`0${index + 1}`} />)}</div>
+  </section>
+
+  <section class="feature-section wrap">
+    <div class="feature-art artwork-lilac" aria-hidden="true"><span class="feature-circle"></span><span class="feature-window"><i></i><i></i><i></i></span><span class="feature-words">little<br />stories<br />of light</span></div>
+    <div class="feature-copy"><p class="eyebrow">MADE TO LIVE WITH</p><h2>一幅插畫，<br />一個住進生活的故事。</h2><p>從故事盒燈箱到日常選物，讓畫面在不同時刻裡，繼續陪伴你。</p><a class="text-link" href="/products/acui/">看看 Acuí 作品 <span aria-hidden="true">↗</span></a></div>
+  </section>
+
+  <section class="collab-band"><div class="wrap collab-band-inner"><div><p class="eyebrow">LET'S MAKE SOMETHING TOGETHER</p><h2>有一個想一起完成的故事？</h2></div><a class="button button-light" href="/collaboration/">聊聊插畫合作 <span aria-hidden="true">↗</span></a></div></section>
+</SiteLayout>
