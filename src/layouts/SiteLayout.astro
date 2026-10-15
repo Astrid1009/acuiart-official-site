@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  breadcrumbs?: { name: string; href?: string }[];
+}
+
+const { title, description, image = '/images/og-cover.svg', breadcrumbs = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const breadcrumbItems = [{ name: '首頁', href: '/' }, ...breadcrumbs];
+const breadcrumbSchema = breadcrumbs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbItems.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.href ? new URL(item.href, Astro.site).toString() : canonical.toString(),
+      })),
+    }
+  : null;
+---
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ec" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: site.name,
+      url: Astro.site,
+      email: site.email,
+      sameAs: [site.instagram],
+    })} />
+    {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳至主要內容</a>
+    <Header />
+    {breadcrumbs.length > 0 && (
+      <nav class="breadcrumbs wrap" aria-label="麵包屑">
+        {breadcrumbItems.map((item, index) => (
+          <span class="breadcrumb-item">
+            {index < breadcrumbItems.length - 1
+              ? <><a href={item.href}>{item.name}</a><span aria-hidden="true">/</span></>
+              : <span aria-current="page">{item.name}</span>}
+          </span>
+        ))}
+      </nav>
+    )}
+    <main id="main"><slot /></main>
+    <Footer />
+  </body>
+</html>
