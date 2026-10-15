@@ -11,9 +11,10 @@ interface Props {
   breadcrumbs?: { name: string; href?: string }[];
 }
 
-const { title, description, image = '/images/og-cover.svg', breadcrumbs = [] } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const breadcrumbItems = [{ name: '首頁', href: '/' }, ...breadcrumbs];
+const { title, description, image = import.meta.env.BASE_URL + 'images/og-cover.svg', breadcrumbs = [] } = Astro.props;
+const canonicalPath = import.meta.env.BASE_URL + Astro.url.pathname.replace(/^\//, '');
+const canonical = new URL(canonicalPath, Astro.site);
+const breadcrumbItems = [{ name: '首頁', href: import.meta.env.BASE_URL }, ...breadcrumbs];
 const breadcrumbSchema = breadcrumbs.length
   ? {
       '@context': 'https://schema.org',
@@ -22,7 +23,7 @@ const breadcrumbSchema = breadcrumbs.length
         '@type': 'ListItem',
         position: index + 1,
         name: item.name,
-        item: item.href ? new URL(item.href, Astro.site).toString() : canonical.toString(),
+        item: item.href ? new URL(item.href.startsWith('/') ? import.meta.env.BASE_URL + item.href.replace(/^\//, '') : item.href, Astro.site).toString() : canonical.toString(),
       })),
     }
   : null;
@@ -35,8 +36,8 @@ const breadcrumbSchema = breadcrumbs.length
     <meta name="theme-color" content="#f5f3ec" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="icon" type="image/svg+xml" href={import.meta.env.BASE_URL + 'favicon.svg'} />
+    <link rel="sitemap" href={import.meta.env.BASE_URL + 'sitemap.xml'} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_TW" />
     <meta property="og:site_name" content={site.name} />
@@ -72,5 +73,11 @@ const breadcrumbSchema = breadcrumbs.length
     )}
     <main id="main"><slot /></main>
     <Footer />
+    <script is:inline>
+      const pagesBase = '/acuiart-official-site';
+      document.querySelectorAll('a[href^="/"]').forEach((link) => {
+        link.setAttribute('href', pagesBase + link.getAttribute('href'));
+      });
+    </script>
   </body>
 </html>
