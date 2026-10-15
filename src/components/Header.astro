@@ -1,0 +1,22 @@
+---
+const links = [
+  { href: '/', label: '首頁' },
+  { href: '/products/', label: '商品' },
+  { href: '/collaboration/', label: '插畫合作' },
+  { href: '/stockists/', label: '銷售據點' },
+];
+---
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a class="wordmark" href="/" aria-label="Acuí 好脆插畫設計首頁">
+      <span class="wordmark-icon" aria-hidden="true">a.</span>
+      <span class="wordmark-copy"><strong>Acuí</strong><small>好脆插畫設計</small></span>
+    </a>
+    <input class="menu-toggle" type="checkbox" id="menu-toggle" aria-label="開啟導覽選單" />
+    <label class="menu-button" for="menu-toggle" aria-hidden="true"><span></span><span></span></label>
+    <nav class="main-nav" aria-label="主要導覽">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+      <a class="nav-shop" href="/products/">探索作品 <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>

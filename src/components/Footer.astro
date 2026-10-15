@@ -1,0 +1,16 @@
+---
+import { site } from '../data/site';
+---
+<footer class="site-footer">
+  <div class="footer-main wrap">
+    <div class="footer-brand">
+      <a class="footer-mark" href="/">Acuí<span>®</span></a>
+      <p>讓插畫住進日常，<br />為生活留下一點柔軟與想像。</p>
+    </div>
+    <div class="footer-links">
+      <div><span class="footer-label">探索</span><a href="/products/">商品系列</a><a href="/collaboration/">插畫合作</a><a href="/stockists/">銷售據點</a></div>
+      <div><span class="footer-label">聯絡</span><a href={`mailto:${site.email}`}>{site.email}</a><span>LINE 官方帳號 {site.lineId}</span><a href={site.instagram} target="_blank" rel="noreferrer">Instagram ↗</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom wrap"><span>© {new Date().getFullYear()} {site.name}</span><span>Made with care in Taiwan</span></div>
+</footer>

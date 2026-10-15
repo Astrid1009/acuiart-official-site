@@ -1,0 +1,11 @@
+---
+const { collection, index = '01' } = Astro.props;
+---
+<a class={`collection-card artwork-${collection.tone}`} href={`/products/${collection.slug}/`}>
+  <div class="artwork" aria-hidden="true"><span class="artwork-orbit"></span><span class="artwork-sun"></span><span class="artwork-landscape"></span><span class="artwork-caption">{collection.name}</span></div>
+  <div class="collection-card-copy">
+    <span class="eyebrow">SERIES {index} <span aria-hidden="true">↗</span></span>
+    <h3>{collection.name}</h3>
+    <p>{collection.intro}</p>
+  </div>
+</a>
