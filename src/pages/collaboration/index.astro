@@ -1,0 +1,8 @@
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { site } from '../../data/site';
+---
+<SiteLayout title="插畫合作｜Acuí 好脆插畫設計" description="插畫家 Astrid 阿脆的品牌視覺、出版、商品與展覽合作資訊。歡迎來信討論適合彼此的創作計畫。" breadcrumbs={[{ name: '插畫合作' }]}>
+  <section class="page-hero wrap"><p class="eyebrow">WORK WITH ASTRID</p><h1>一起把想法，<br /><em>畫成一個故事。</em></h1><p class="page-lede">品牌合作、出版企劃、商品插畫，<br />歡迎帶著你的點子來聊聊。</p></section>
+  <section class="collab-content wrap"><div class="collab-visual artwork-peach" aria-hidden="true"><span class="collab-visual-sun"></span><span class="collab-visual-text">ideas<br />grow<br />together</span><span class="collab-visual-flower">✳</span></div><div class="collab-details"><p class="eyebrow">COLLABORATION</p><h2>讓好的想法，<br />長成喜歡的樣子。</h2><p>插畫家 Astrid 阿脆持續開放合適的創作合作。請簡單介紹合作單位、企劃內容、預計時程與預算，我們會再與你聯繫。</p><div class="collab-topics"><span>品牌與視覺</span><span>出版與編輯</span><span>商品與授權</span><span>展覽與活動</span></div><a class="button" href={`mailto:${site.email}?subject=${encodeURIComponent('插畫合作洽詢')}`}>寄信洽談 <span aria-hidden="true">↗</span></a><p class="contact-small">{site.email}</p></div></section>
+  <section class="collab-bottom wrap"><span>01 / INTRODUCE YOUR IDEA</span><span>02 / LET'S DISCUSS THE DETAILS</span><span>03 / MAKE IT COME TO LIFE</span></section>
+</SiteLayout>
