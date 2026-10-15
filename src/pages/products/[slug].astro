@@ -1,0 +1,18 @@
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { collections, shopLinks } from '../../data/site';
+
+export function getStaticPaths() {
+  return collections.map((collection) => ({ params: { slug: collection.slug }, props: { collection } }));
+}
+
+const { collection } = Astro.props;
+const shopUrl = shopLinks[collection.slug];
+---
+<SiteLayout title={collection.name + '｜商品系列｜Acuí 好脆插畫設計'} description={collection.description} breadcrumbs={[{ name: '商品', href: '/products/' }, { name: collection.name }]}>
+  <section class={'collection-hero wrap artwork-' + collection.tone}>
+    <div class="collection-hero-copy"><p class="eyebrow">{collection.english}</p><h1>{collection.name}</h1><p class="collection-tagline">{collection.intro}</p><p class="collection-description">{collection.description}</p>{shopUrl ? <a class="button" href={shopUrl} target="_blank" rel="noreferrer">前往線上商店 <span aria-hidden="true">↗</span></a> : <span class="button button-muted" aria-disabled="true">線上商店連結準備中</span>}</div>
+    <div class="collection-hero-art" aria-hidden="true"><span class="collection-hero-sun"></span><span class="collection-hero-orbit"></span><span class="collection-hero-hill"></span><span class="collection-hero-word">{collection.name}</span></div>
+  </section>
+  <section class="collection-story wrap"><div><p class="eyebrow">THE STORY</p><h2>讓故事，<br />在生活裡繼續。</h2></div><div class="story-body"><p>{collection.description}</p><p>我們正在整理系列作品、商品介紹與相關資訊，敬請期待。</p></div></section>
+  <section class="product-placeholders"><div class="wrap"><p class="eyebrow">A FEW THINGS FROM THIS WORLD</p><h2>系列作品</h2><div class="placeholder-grid">{collection.products.map((product, index) => <article class={'placeholder-product placeholder-' + (index + 1)}><div class="placeholder-visual" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span><i></i></div><h3>{product}</h3><p>商品資訊準備中</p></article>)}</div></div></section>
+</SiteLayout>
